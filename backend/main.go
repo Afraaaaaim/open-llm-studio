@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json" // used to convert Go data -> JSON format
-	"net/http"     // provides HTTP server and request/response handling
+	"net/http"      // provides HTTP server and request/response handling
 )
 
 // hello is a handler function.

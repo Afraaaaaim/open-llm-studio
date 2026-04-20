@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 // RootLayout is required in Next.js App Router.
 // It wraps ALL pages in the app.
 //
@@ -15,3 +17,7 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+RootLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
