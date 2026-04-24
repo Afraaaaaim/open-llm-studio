@@ -15,6 +15,13 @@ type InputBoxProps = {
 export default function InputBox({ messages, setMessages }: InputBoxProps) {
   const [input, setInput] = useState("");
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      void sendMessage();
+    }
+  };
+
   const sendMessage = async () => {
     if (!input) return;
 
@@ -25,6 +32,7 @@ export default function InputBox({ messages, setMessages }: InputBoxProps) {
 
     // Show user message immediately
     setMessages(newMessages);
+    setInput("");
 
     const res = await fetch("/api/chat", {
       method: "POST",
@@ -33,7 +41,7 @@ export default function InputBox({ messages, setMessages }: InputBoxProps) {
       },
       body: JSON.stringify({ messages: newMessages }),
     });
-
+    console.log("API Response:", res);
     const data = await res.json();
 
     // Add assistant response
@@ -42,7 +50,6 @@ export default function InputBox({ messages, setMessages }: InputBoxProps) {
       { role: "assistant", content: data.message.content },
     ]);
 
-    setInput("");
   };
 
   return (
@@ -50,6 +57,7 @@ export default function InputBox({ messages, setMessages }: InputBoxProps) {
       <input
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={handleKeyDown}
         placeholder="Ask something..."
         className="flex-1 bg-transparent outline-none text-gray-300"
       />
