@@ -2,10 +2,12 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy from ./frontend context
+# Cache node_modules layer separately
+COPY package.json package-lock.json ./
+RUN npm ci
+
 COPY . .
 
-RUN npm install
 RUN npm run build
 
 EXPOSE 3000

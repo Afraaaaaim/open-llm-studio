@@ -1,8 +1,6 @@
 package chat
 
 import (
-	"fmt"
-
 	"backend/pkg/ollama"
 )
 
@@ -15,7 +13,6 @@ type Service struct {
 func NewService(ollamaClient *ollama.Client) *Service {
 	return &Service{ollama: ollamaClient}
 }
-
 // Send forwards a chat request to Ollama and returns the response.
 func (s *Service) Send(req Request) (map[string]any, error) {
 	payload := map[string]any{
@@ -26,7 +23,14 @@ func (s *Service) Send(req Request) (map[string]any, error) {
 
 	result, err := s.ollama.Post("/api/chat", payload)
 	if err != nil {
-		return nil, fmt.Errorf("chat service: %w", err)
+		return map[string]any{
+			"model": req.Model,
+			"message": map[string]any{
+				"role":    "assistant",
+				"content": "Hey there from backend!!! 👋 It looks like I'm having trouble connecting to Ollama. Please make sure it's running and reachable, then try again!",
+			},
+			"done": true,
+		}, nil
 	}
 
 	return result, nil

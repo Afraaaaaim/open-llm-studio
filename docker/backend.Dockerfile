@@ -2,7 +2,9 @@ FROM golang:1.22-alpine
 
 WORKDIR /app
 
-# Copy from build context (./backend), not from Dockerfile location
+COPY go.mod ./
+RUN go mod download
+
 COPY . .
 
 RUN go build -o app
