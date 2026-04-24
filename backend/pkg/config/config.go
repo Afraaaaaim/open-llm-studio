@@ -13,7 +13,7 @@ type Config struct {
 func Load() *Config {
 	return &Config{
 		Port:       getEnv("PORT", "8000"),
-		OllamaHost: getEnv("OLLAMA_HOST", "http://homeserver:11434"),
+		OllamaHost: getEnv("OLLAMA_HOST", "http://172.17.0.1:11434"),
 	}
 }
 

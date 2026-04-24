@@ -1,7 +1,9 @@
+const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:8000";
+
 export async function POST(req: Request) {
   const body = await req.json();
 
-  const response = await fetch("http://homeserver:11434/api/chat", {
+  const response = await fetch(`${BACKEND_URL}/api/chat`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
