@@ -34,7 +34,7 @@ export default function InputBox({ messages, setMessages }: InputBoxProps) {
     setMessages(newMessages);
     setInput("");
 
-    const res = await fetch("/api/chat", {
+    const res = await fetch("/chat/api", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
