@@ -3,6 +3,8 @@
 import { useChat } from "../hooks/useChat";
 import InputBox from "./InputBox";
 import Suggestions from "./Suggestions";
+import ReactMarkdown from "react-markdown";
+import CodeBlock from "./CodeBlock";
 
 export default function ChatLayout() {
   const { messages, sendMessage } = useChat();
@@ -63,7 +65,15 @@ export default function ChatLayout() {
                   : "bg-[#1e1e1e] text-gray-200 border border-[#333]"
               }`}
             >
-              <div className="whitespace-pre-wrap leading-relaxed">{msg.content}</div>
+               <div className="prose prose-invert max-w-none">
+                <ReactMarkdown
+                  components={{
+                    code: CodeBlock,
+                  }}
+                >
+                  {msg.content}
+                </ReactMarkdown>
+              </div>
             </div>
           </div>
         ))}
